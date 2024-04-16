@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            z-index: 9999; /* Assure que la boîte de dialogue est au-dessus de tout le reste */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialogue {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px; /* Largeur de la boîte de dialogue */
+            max-width: 80%; /* Pourcentage de la largeur maximale */
+        }
+
+        .dialogue h1 {
+            text-align: center;
+        }
+
+        .dialogue input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dialogue input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #404040	;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dialogue input[type="submit"]:hover {
+            background-color:#181818 ;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Modifier un créateur</title>
+</head>
+<body>
+<div class="overlay">
+    <form method="post" action="/modifiercreator" class="dialogue">
+        <h1>Modifier un créateur</h1>
+        <input name="id" type="hidden" th:value="${creatorToBeUpdated.getId()}">
+        Nom:
+        <input name="name" type="text" th:value="${creatorToBeUpdated.getNom()}" required><br><br>
+        Email:
+        <input name="mail" type="text" th:value="${creatorToBeUpdated.getEmail()}" required><br><br>
+        <input name="id" type="hidden" th:value="${creatorToBeUpdated.getId()}">
+        <h2>Vidéos:</h2>
+        <div th:each="video : ${videosToBeUpdated}">
+            Nom de la vidéo: <input name="videoName" type="text" th:value="${video.getName()}" required><br>
+            URL de la vidéo: <input name="videoUrl" type="text" th:value="${video.getUrl()}" required><br>
+            Description de la vidéo: <input name="videodesc" type="text" th:value="${video.getDescription()}" required><br><br>
+        </div>
+
+        <input type="submit" value="Modifier">
+    </form>
+</div>
+</body>
+</html>
